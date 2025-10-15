@@ -11,7 +11,7 @@ export default function RootLayout() {
         <Route path="*" element={<StartupPage />} />
         <Route path="/form" element={<MainFormPage />} />
         <Route path="/finalSubmit" element={<FinalSubmitPage />} />
-        <Route path="/sa/$dashboard$" element={<Dashboard />} />
+        <Route path="/dc7161be3dbf2250c8954e560cc35060" element={<Dashboard />} />
       </Routes>
     </HashRouter>
   );
