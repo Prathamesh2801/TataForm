@@ -220,7 +220,7 @@ const MainFormPage = () => {
               <p className="mb-2">
                 Should you need any assistance while completing the form, please
                 feel free to contact us at{" "}
-                <span className="font-semibold">+919930227373</span> or write to
+                <span className="font-semibold">+919833187924</span> or write to
                 us at{" "}
                 <span className="font-semibold">edgeelite@ihmgroup.in</span> -
                 our team will be happy to help.

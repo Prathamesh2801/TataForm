@@ -2,7 +2,7 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import StartupPage from "../pages/StartupPage";
 import MainFormPage from "../pages/MainFormPage";
 import FinalSubmitPage from "../pages/FinalSubmitPage";
-import Dashboard from "../pages/Dasgboard";
+import Dashboard from "../pages/Dashboard";
 
 export default function RootLayout() {
   return (
@@ -11,7 +11,7 @@ export default function RootLayout() {
         <Route path="*" element={<StartupPage />} />
         <Route path="/form" element={<MainFormPage />} />
         <Route path="/finalSubmit" element={<FinalSubmitPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/sa/$dashboard$" element={<Dashboard />} />
       </Routes>
     </HashRouter>
   );
