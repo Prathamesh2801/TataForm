@@ -31,6 +31,9 @@ export async function SubmitData(formData) {
   bodyFormData.append("Arrival_City", formData.arrivalCity || "");
   bodyFormData.append("Arrival_City_Other", formData.arrivalCityOther || "");
 
+  // Preference
+  bodyFormData.append("Seat_Preference", formData.seatPreference || "");
+
   // Optional travel options
   bodyFormData.append("Flight_Option_Departure", "");
   bodyFormData.append("Flight_Option_Arrival", "");

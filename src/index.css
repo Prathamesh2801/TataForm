@@ -1,4 +1,13 @@
+/* src/index.css */
+@font-face {
+  font-family: "MyFont";
+  src: url("./assets/fonts/Poppins-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* then existing Tailwind imports */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-

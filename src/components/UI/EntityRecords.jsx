@@ -1,8 +1,15 @@
-import React, { useMemo, useCallback, useState, useRef } from "react";
+import React, {
+  useMemo,
+  useCallback,
+  useState,
+  useRef,
+  useEffect,
+} from "react";
 import { AgGridReact } from "ag-grid-react";
-import { Eye, RefreshCw, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Eye, RefreshCw } from "lucide-react";
+import { motion } from "framer-motion";
 import { fetchAllUsers } from "../../api/FetchAllUsersAPI";
+import FormModal from "./FormModal";
 
 export default function EntityRecords({
   fields = [],
@@ -26,15 +33,22 @@ export default function EntityRecords({
     try {
       setModalLoading(true);
       setShowModal(true);
+      setSelectedUser(null);
 
       const res = await fetchAllUsers(email.trim());
       console.log("User details:", res);
-      setSelectedUser(res.Data?.[0]);
+      setSelectedUser(res.Data?.[0] || null);
     } catch (err) {
       console.error("Fetch error:", err);
+      setSelectedUser(null);
     } finally {
       setModalLoading(false);
     }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setTimeout(() => setSelectedUser(null), 300);
   };
 
   // ----------------------------
@@ -51,27 +65,41 @@ export default function EntityRecords({
       resizable: true,
       minWidth: f.minWidth || 150,
       flex: f.flex || 1,
+      cellStyle: {
+        display: "flex",
+        alignItems: "center",
+        padding: "0 12px",
+      },
     }));
 
     cols.push({
       headerName: "Actions",
       field: "actions",
       minWidth: 130,
+      maxWidth: 150,
+      pinned: "right",
       cellRenderer: (params) => {
         const email = params.data?.Email_ID;
         return (
-          <motion.button
-            onClick={() => handleViewUser(email)}
-            className="flex items-center justify-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md transition-all duration-150"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Eye className="h-4 w-4" />
-            <span>View</span>
-          </motion.button>
+          <div className="flex items-center justify-center h-full">
+            <motion.button
+              onClick={() => handleViewUser(email)}
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-sm font-medium rounded-lg shadow-md transition-all duration-150"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Eye className="h-4 w-4" />
+              <span className="hidden sm:inline">View</span>
+            </motion.button>
+          </div>
         );
       },
-      cellStyle: { textAlign: "center" },
+      cellStyle: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "8px",
+      },
     });
 
     return cols;
@@ -85,113 +113,77 @@ export default function EntityRecords({
       resizable: true,
       sortable: true,
       filter: true,
+      wrapText: false,
+      autoHeight: false,
     }),
     []
   );
 
   const onGridReady = useCallback((params) => {
     setGridApi(params.api);
-    setTimeout(() => params.api.sizeColumnsToFit(), 200);
+    setTimeout(() => {
+      params.api.sizeColumnsToFit();
+    }, 200);
   }, []);
 
-  // ----------------------------
-  // 🧩 Modal UI Component
-  // ----------------------------
-  const Modal = () => (
-    <AnimatePresence>
-      {showModal && (
-        <motion.div
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <motion.div
-            className="bg-gray-900/90 border border-gray-700 rounded-2xl p-6 w-[500px] shadow-2xl text-gray-200"
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold text-white">User Details</h2>
-              <button
-                onClick={() => {
-                  setShowModal(false);
-                  setSelectedUser(null);
-                }}
-                className="text-gray-400 hover:text-white"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-
-            {modalLoading ? (
-              <div className="flex items-center justify-center p-6">
-                <div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin mr-2"></div>
-                Loading user details...
-              </div>
-            ) : selectedUser ? (
-              <div className="space-y-3 text-sm max-h-[400px] overflow-y-auto pr-2">
-                {Object.entries(selectedUser).map(([key, value]) => (
-                  <div
-                    key={key}
-                    className="flex justify-between border-b border-gray-700/50 pb-1"
-                  >
-                    <span className="font-medium text-gray-400">{key}</span>
-                    <span className="text-gray-200 text-right break-words max-w-[250px]">
-                      {String(value)}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-gray-400 text-center py-6">
-                No user data found.
-              </div>
-            )}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
+  // Auto-resize on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (gridApi) {
+        gridApi.sizeColumnsToFit();
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [gridApi]);
 
   // ----------------------------
   // 🧾 Render Component
   // ----------------------------
   return (
     <div className="space-y-4 relative">
-      <div className="bg-gray-800/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-4 flex items-center justify-between">
-        <div className="text-gray-200 font-medium">
-          Total:{" "}
-          <span className="text-white font-bold">{items?.length || 0}</span>{" "}
-          records
-        </div>
+      {/* Header Controls */}
+      <div className="bg-gradient-to-r from-gray-800/80 to-gray-700/80 backdrop-blur-xl border border-gray-700/50 rounded-xl p-4 shadow-lg">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg px-4 py-2">
+              <span className="text-white font-bold text-lg">
+                {items?.length || 0}
+              </span>
+            </div>
+            <div className="text-gray-200">
+              <p className="text-sm text-gray-400">Total Records</p>
+              <p className="text-xs text-gray-500">Form Submissions</p>
+            </div>
+          </div>
 
-        <motion.button
-          onClick={onRefresh}
-          className="flex items-center space-x-2 p-2 text-gray-300 hover:text-white hover:bg-gray-700/50 rounded-lg transition-colors"
-          disabled={loading}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
-          <span className="hidden sm:inline">Refresh</span>
-        </motion.button>
+          <motion.button
+            onClick={onRefresh}
+            className="flex items-center gap-2 px-4 py-2 bg-gray-700/50 hover:bg-gray-600/50 text-gray-200 rounded-lg transition-all border border-gray-600/50 hover:border-gray-500/50"
+            disabled={loading}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+            <span className="font-medium">Refresh</span>
+          </motion.button>
+        </div>
       </div>
 
-      {/* ✅ AG Grid */}
+      {/* AG Grid Table */}
       <div
-        className="bg-gray-800/30 backdrop-blur-xl border border-gray-700/50 rounded-xl overflow-hidden"
+        className="bg-gray-800/30 backdrop-blur-xl border border-gray-700/50 rounded-xl overflow-hidden shadow-2xl"
         style={{
           height: "600px",
-          "--ag-background-color": "rgba(31, 41, 55, 0.8)",
-          "--ag-header-background-color": "rgba(55, 65, 81, 0.9)",
+          "--ag-background-color": "rgba(17, 24, 39, 0.8)",
+          "--ag-header-background-color": "rgba(31, 41, 55, 0.95)",
           "--ag-odd-row-background-color": "rgba(31, 41, 55, 0.4)",
-          "--ag-row-hover-color": "rgba(59, 130, 246, 0.1)",
-          "--ag-selected-row-background-color": "rgba(59, 130, 246, 0.2)",
+          "--ag-row-hover-color": "rgba(59, 130, 246, 0.15)",
+          "--ag-selected-row-background-color": "rgba(59, 130, 246, 0.25)",
           "--ag-foreground-color": "#E5E7EB",
-          "--ag-header-foreground-color": "#F3F4F6",
+          "--ag-header-foreground-color": "#F9FAFB",
           "--ag-border-color": "rgba(75, 85, 99, 0.3)",
+          "--ag-row-border-color": "rgba(75, 85, 99, 0.2)",
         }}
       >
         <AgGridReact
@@ -201,14 +193,22 @@ export default function EntityRecords({
           defaultColDef={defaultColDef}
           pagination={true}
           paginationPageSize={20}
-          rowHeight={56}
-          headerHeight={48}
+          rowHeight={60}
+          headerHeight={52}
           onGridReady={onGridReady}
+          animateRows={true}
+          suppressCellFocus={true}
+          rowSelection="single"
         />
       </div>
 
-      {/* ✅ Modal */}
-      <Modal />
+      {/* Form Modal */}
+      <FormModal
+        isOpen={showModal}
+        onClose={handleCloseModal}
+        userData={selectedUser}
+        loading={modalLoading}
+      />
     </div>
   );
 }

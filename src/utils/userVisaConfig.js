@@ -8,6 +8,7 @@ export const userVisaConfig = {
     { name: "SR_NO", label: "Sr No", type: "number", readonly: true, minWidth: 80, flex: 0.5 },
     { name: "Full_Name", label: "Full Name", type: "text", minWidth: 180, flex: 1.2 },
     { name: "Email_ID", label: "Email", type: "text", minWidth: 200, flex: 1.5 },
+    { name: "Valid_Visa", label: "Valid Visa", type: "text", minWidth: 200, flex: 1.5 },
   ],
 
   api: {

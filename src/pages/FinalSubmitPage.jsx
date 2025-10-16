@@ -64,10 +64,10 @@ const FinalSubmitPage = () => {
                     <Phone size={18} className="text-blue-600" />
                   </div>
                   <a
-                    href="tel:+919930227373"
+                    href="tel:+919833187924"
                     className="font-medium hover:text-blue-600 transition-colors"
                   >
-                    +91 99302 27373
+                    +91 98331 87924
                   </a>
                 </div>
                 <div className="flex items-center justify-center gap-3 text-gray-700">

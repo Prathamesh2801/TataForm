@@ -118,7 +118,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       {/* Mobile sidebar overlay */}
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {sidebarOpen && (
           <>
             <motion.div
@@ -138,7 +138,6 @@ export default function Dashboard() {
               className="fixed inset-y-0 left-0 z-50 w-72 lg:hidden"
             >
               <div className="flex h-full flex-col bg-gray-900/95 backdrop-blur-xl border-r border-gray-700/50">
-                {/* Close button */}
                 <div className="flex items-center justify-between p-6">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
@@ -158,7 +157,6 @@ export default function Dashboard() {
                   </motion.button>
                 </div>
 
-                {/* Navigation */}
                 <nav className="flex-1 px-6 pb-6">
                   <ul className="space-y-2">
                     {navigation.map((item, index) => (
@@ -192,16 +190,15 @@ export default function Dashboard() {
             </motion.div>
           </>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
 
       {/* Desktop sidebar */}
-      <motion.div
+      {/* <motion.div
         variants={desktopSidebarVariants}
         animate={desktopSidebarCollapsed ? "collapsed" : "expanded"}
         className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col bg-gray-900/95 backdrop-blur-xl border-r border-gray-700/50 overflow-hidden"
       >
         <div className="flex grow flex-col gap-y-5 px-6 pb-6">
-          {/* Header with toggle button */}
           <div className="flex h-16 shrink-0 items-center justify-between">
             <AnimatePresence mode="wait">
               {!desktopSidebarCollapsed && (
@@ -240,7 +237,6 @@ export default function Dashboard() {
             </motion.button>
           </div>
 
-          {/* Navigation */}
           <nav className="flex flex-1 flex-col">
             <ul className="flex flex-1 flex-col gap-y-7">
               <li>
@@ -282,7 +278,7 @@ export default function Dashboard() {
             </ul>
           </nav>
         </div>
-      </motion.div>
+      </motion.div> */}
 
       {/* Mobile header */}
       <div className="sticky top-0 z-40 flex items-center justify-between bg-gray-900/95 backdrop-blur-xl px-4 py-3 border-b border-gray-700/50 lg:hidden">

@@ -28,6 +28,7 @@ const MainFormPage = () => {
     departureCityOther: "",
     arrivalCity: "",
     arrivalCityOther: "",
+    seatPreference: "",
     leisureActivity: "",
     mealPreference: "",
     mealPreferenceOther: "",
@@ -45,6 +46,8 @@ const MainFormPage = () => {
     "Pune",
     "Other",
   ];
+
+  const seatOptions = ["Window", "Aisle", "Either"];
 
   const mealOptions = ["Vegetarian", "Non-Vegetarian", "Jain", "Other"];
 
@@ -149,7 +152,7 @@ const MainFormPage = () => {
     <div
       className="min-h-screen py-8 px-4"
       style={{
-        background: `url(${heroData.form_background_image}) no-repeat center/cover`,
+        background: `url(${heroData.form_background_image})  center/contain`,
       }}
     >
       <div className="max-w-3xl mx-auto">
@@ -215,7 +218,7 @@ const MainFormPage = () => {
               <p className="mb-2">
                 Fields marked with an asterisk (
                 <span className="text-red-500">*</span>) are mandatory and must
-                be filled in to proceed.
+                be filled in order to proceed.
               </p>
               <p className="mb-2">
                 Should you need any assistance while completing the form, please
@@ -511,6 +514,30 @@ const MainFormPage = () => {
                         className="mt-3 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
                       />
                     )}
+                  </div>
+                  {/* Seat Preference Dropdown */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Choose your seat preference
+                    </label>
+                    <p className="text-xs text-gray-600 mb-3">
+                      Got a favorite seat? Let us know, and we’ll try to snag it
+                      for you! (Subject to availability)
+                    </p>
+                    <select
+                      value={formData.seatPreference}
+                      onChange={(e) =>
+                        handleInputChange("seatPreference", e.target.value)
+                      }
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
+                    >
+                      <option value="">Select seat preference</option>
+                      {seatOptions.map((seat) => (
+                        <option key={seat} value={seat}>
+                          {seat}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
               )}

@@ -43,7 +43,7 @@ export default function EntityManage({ config }) {
         setLoading(false);
       }
     },
-    [config, loading]
+    [config]
   );
 
   useEffect(() => {
@@ -55,17 +55,91 @@ export default function EntityManage({ config }) {
     recordsKey.current += 1;
   };
 
+  const formatSubmissionTime = (timestamp) => {
+    if (!timestamp) return "";
+    try {
+      // Format according to user's locale (India) for readability
+      return new Date(timestamp).toLocaleString("en-IN", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      });
+    } catch {
+      return String(timestamp);
+    }
+  };
+
+  const transformItemsForExcel = (items) => {
+    return items.map((item) => {
+      // departure / arrival chosen value or the _Other fallback
+      const departure =
+        item.Flight_Booking === "Yes"
+          ? item.Departure_City !== "Other"
+            ? item.Departure_City || ""
+            : item.Departure_City_Other || ""
+          : "";
+
+      const arrival =
+        item.Flight_Booking === "Yes"
+          ? item.Arrival_City !== "Other"
+            ? item.Arrival_City || ""
+            : item.Arrival_City_Other || ""
+          : "";
+
+      const mealPref =
+        item.Meal_Preference && item.Meal_Preference !== "Other"
+          ? item.Meal_Preference
+          : item.Meal_Preference_Other || "";
+
+      // Visa assistance only shown when Valid_Visa === "No"
+      const arrangingVisa =
+        item.Valid_Visa === "No" ? item.Arranging_Visa || "" : "";
+
+      return {
+        "Full Name": item.Full_Name || "NA",
+        "Email Address": item.Email_ID || "NA",
+        "Address for Document Collection": item.Address || "NA",
+        // Visa
+        "Do you currently hold a valid Singapore visa (Valid until at least December 15, 2025)":
+          item.Valid_Visa || "NA",
+        "We’d be delighted to assist you with arranging your visa to ensure a seamless and hassle-free experience":
+          arrangingVisa || "NA",
+        // Flight
+        "We’d be delighted to arrange your flights for a smooth journey. If your company policy requires you to book your own, just let us know ":
+          item.Flight_Booking || "NA",
+        "Departure City": departure || 'NA',
+        "Arrival City": arrival || 'NA',
+        "Seat Preference": item.Seat_Preference || 'NA',
+
+        // Journey extras
+        "Preference for Leisure Activity on the 13th of December, 2025":
+          item.Preference_Leisure_Activity || "NA",
+        "Meal Preference": mealPref || "NA",
+        "Food Allergies": item.Food_Allergies || "NA",
+        // Submission
+        "Submitted On": formatSubmissionTime(item.Created_At),
+       
+      };
+    });
+  };
+
   const handleDownloadExcel = () => {
     try {
-      if (!items.length) {
+      if (!items || !items.length) {
         toast.error("No data available to download");
         return;
       }
 
-      const worksheet = XLSX.utils.json_to_sheet(items);
+      const rows = transformItemsForExcel(items);
+
+      const worksheet = XLSX.utils.json_to_sheet(rows, { skipHeader: false });
       const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, config.entity);
-      const fileName = `${config.entity}_Data_${
+      XLSX.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        config.entity || "Data"
+      );
+
+      const fileName = `${config.entity || "Entity"}_Data_${
         new Date().toISOString().split("T")[0]
       }.xlsx`;
       XLSX.writeFile(workbook, fileName);
