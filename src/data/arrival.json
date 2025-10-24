@@ -1,0 +1,378 @@
+{
+  "Economy": {
+    "Ahmedabad": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN - AMD",
+        "Date": "13th December",
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 504",
+        "Departure_Time": "ETD SGT : 18:40",
+        "Arrival_Time": "ETA IST : 21:50",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "2",
+        "Title": "Option B - SIN - AMD",
+        "Date": "13th December",
+        "Airline": "Air Asia",
+        "Flight_Number": "FD 356/FD 144",
+        "Departure_Time": "ETD SGT: 15:00",
+        "Arrival_Time": "ETA IST : 21:25",
+        "Layover": "Bangkok"
+      },
+      {
+        "Id": "3",
+        "Title": "Option C - SIN - AMD",
+        "Date": "13th December",
+        "Airline": "VietJet",
+        "Flight_Number": "VJ 816/VJ 1805",
+        "Departure_Time": "ETD SGT: 16:15",
+        "Arrival_Time": "ETA IST: 22:50",
+        "Layover": "Ho Chi Minh"
+      }
+    ],
+    "Bangalore": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN - BLR",
+        "Date": "13th December",
+        "Airline": "IndiGo",
+        "Flight_Number": "6E 1010",
+        "Departure_Time": "ETD SGT : 19:40",
+        "Arrival_Time": "ETA IST : 21:45",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "2",
+        "Title": "Option B - SIN - BLR",
+        "Date": "13th December",
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 510",
+        "Departure_Time": "ETD SGT : 20:00",
+        "Arrival_Time": "ETA IST : 21:50",
+        "Layover": "NULL"
+      }
+    ],
+    "Chennai": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN - MAA",
+        "Date": "13th December",
+        "Airline": "IndiGo",
+        "Flight_Number": "6E 1004",
+        "Departure_Time": "ETD SGT : 22:30",
+        "Arrival_Time": "ETA IST : 00:10",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "2",
+        "Title": "Option B - SIN - MAA",
+        "Date": "13th December",
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 528",
+        "Departure_Time": "ETD SGT : 20:35",
+        "Arrival_Time": "ETA IST : 22:10",
+        "Layover": "NULL"
+      }
+    ],
+    "Delhi": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN - DEL",
+        "Date": "13th December",
+        "Airline": "IndiGo",
+        "Flight_Number": "6E 1014",
+        "Departure_Time": "ETD SGT : 19:40",
+        "Arrival_Time": "ETA IST : 23:10",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "2",
+        "Title": "Option B - SIN - DEL",
+        "Date": "13th December",
+        "Airline": "Air India",
+        "Flight_Number": "AI 2116",
+        "Departure_Time": "ETD SGT : 20:30",
+        "Arrival_Time": "ETA IST : 00:10",
+        "Layover": "NULL"
+      }
+    ],
+    "Hyderabad": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN- HYD",
+        "Date": "13th December",
+        "Airline": "IndiGo",
+        "Flight_Number": "6E 1028",
+        "Departure_Time": "ETD SGT : 18:55",
+        "Arrival_Time": "ETA IST : 21:10",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "2",
+        "Title": "Option B - SIN- HYD",
+        "Date": "13th December",
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 522",
+        "Departure_Time": "ETD SGT : 20:00",
+        "Arrival_Time": "ETA IST : 21:55",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "3",
+        "Title": "Option C - SIN - HYD",
+        "Date": "13th December",
+        "Airline": "Air Asia",
+        "Flight_Number": "AK 716 / AK 69",
+        "Departure_Time": "ETD SGT : 18:35",
+        "Arrival_Time": "ETA IST : 23:15",
+        "Layover": "Federal Territory of Kuala Lumpur"
+      }
+    ],
+    "Kolkata": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN - CCU",
+        "Date": "13th December",
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 516",
+        "Departure_Time": "ETD SGT : 20:40",
+        "Arrival_Time": "ETA IST : 22:25",
+        "Layover": "NULL"
+      }
+    ],
+    "Mumbai": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN - BOM",
+        "Date": "13th December",
+        "Airline": "IndiGo",
+        "Flight_Number": "6E 1012",
+        "Departure_Time": "ETD SGT : 19:40",
+        "Arrival_Time": "ETA IST : 22:45",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "2",
+        "Title": "Option B - SIN - BOM",
+        "Date": "13th December",
+        "Airline": "Air India",
+        "Flight_Number": "AI 2108",
+        "Departure_Time": "ETD SGT : 19:40",
+        "Arrival_Time": "ETA IST : 23:00",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "3",
+        "Title": "Option C - SIN - BOM",
+        "Date": "13th December",
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 424",
+        "Departure_Time": "ETD SGT : 18:50",
+        "Arrival_Time": "ETA IST : 21:50",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "4",
+        "Title": "Option D - SIN - BOM",
+        "Date": "13th December",
+        "Airline": "Malaysia Airlines",
+        "Flight_Number": "MH 068/ MH 194",
+        "Departure_Time": "ETD SGT : 17:25",
+        "Arrival_Time": "ETA IST : 22:35",
+        "Layover": "Federal Territory of Kuala Lumpur"
+      }
+    ],
+    "Pune": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN - PNQ",
+        "Date": "13th December",
+        "Airline": "IndiGo",
+        "Flight_Number": "6E 1010/6E 6563",
+        "Departure_Time": "ETD SGT : 19:40",
+        "Arrival_Time": "ETA IST : 02:20",
+        "Layover": "Bangalore"
+      },
+      {
+        "Id": "2",
+        "Title": "Option B - SIN - PNQ",
+        "Date": "13th December",
+        "Airline": "Air India",
+        "Flight_Number": "AI 2383/2469",
+        "Departure_Time": "ETD SGT : 23:00",
+        "Arrival_Time": "ETA IST : 06:55",
+        "Layover": "New Delhi"
+      }
+    ]
+  },
+  "Business": {
+    "Ahmedabad": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN - AMD",
+        "Date": "13th December",
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 504",
+        "Departure_Time": "ETD SGT : 18:40",
+        "Arrival_Time": "ETA IST : 21:50",
+        "Layover": "NULL"
+      }
+    ],
+    "Bangalore": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN - BLR",
+        "Date": "13th December",
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 510",
+        "Departure_Time": "ETD SGT : 20:00",
+        "Arrival_Time": "ETA IST : 21:50",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "2",
+        "Title": "Option B - SIN - BLR",
+        "Date": "13th December",
+        "Airline": "Malaysia Airlines",
+        "Flight_Number": "MH 608/ MH 192",
+        "Departure_Time": "ETD SGT : 17:25",
+        "Arrival_Time": "ETA IST : 23:20",
+        "Layover": "Federal Territory of Kuala Lumpur"
+      }
+    ],
+    "Chennai": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN-MAA",
+        "Date": "13th December",
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 528",
+        "Departure_Time": "ETD SGT : 20:35",
+        "Arrival_Time": "ETA IST : 22:10",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "2",
+        "Title": "Option B - SIN - MAA",
+        "Date": "13th December",
+        "Airline": "Air Asia",
+        "Flight_Number": "AK 716/ AK 13",
+        "Departure_Time": "ETD SGT : 18:35",
+        "Arrival_Time": "ETA IST : 22:55",
+        "Layover": "Federal Territory of Kuala Lumpur"
+      },
+      {
+        "Id": "3",
+        "Title": "Option C - SIN - MAA",
+        "Date": "13th December",
+        "Airline": "Malaysia Airlines",
+        "Flight_Number": "MH 608/MH180",
+        "Departure_Time": "ETD SGT : 17:25",
+        "Arrival_Time": "ETA IST : 23:05",
+        "Layover": "Federal Territory of Kuala Lumpur"
+      }
+    ],
+    "Delhi": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN - DEL",
+        "Date": "13th December",
+        "Airline": "Air India",
+        "Flight_Number": "AI 2116",
+        "Departure_Time": "ETD SGT : 20:30",
+        "Arrival_Time": "ETA IST : 00:10",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "2",
+        "Title": "Option B -SIN - DEL",
+        "Date": "13th December",
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 406",
+        "Departure_Time": "ETD SGT : 16:40",
+        "Arrival_Time": "ETA IST : 20:00",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "3",
+        "Title": "Option C - SIN - DEL",
+        "Date": "13th December",
+        "Airline": "IndiGo",
+        "Flight_Number": "6E 1014",
+        "Departure_Time": "ETD SGT : 19:40",
+        "Arrival_Time": "ETA IST : 23:10",
+        "Layover": "NULL"
+      }
+    ],
+    "Hyderabad": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN- HYD",
+        "Date": "13th December",
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 522",
+        "Departure_Time": "ETD SGT : 20:00",
+        "Arrival_Time": "ETA IST : 21:55",
+        "Layover": "NULL"
+      }
+    ],
+    "Kolkata": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN - CCU",
+        "Date": "13th December",
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 516",
+        "Departure_Time": "ETD SGT : 20:40",
+        "Arrival_Time": "ETA IST : 22:25",
+        "Layover": "NULL"
+      }
+    ],
+    "Mumbai": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN - BOM",
+        "Date": "13th December",
+        "Airline": "Air India",
+        "Flight_Number": "AI 2108",
+        "Departure_Time": "ETD SGT : 19:40",
+        "Arrival_Time": "ETA IST : 23:00",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "2",
+        "Title": "Option B - SIN - BOM",
+        "Date": "13th December",
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 424",
+        "Departure_Time": "ETD SGT : 18:50",
+        "Arrival_Time": "ETA IST : 21:50",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "3",
+        "Title": "Option C - SIN - BOM",
+        "Date": "13th December",
+        "Airline": "IndiGo",
+        "Flight_Number": "6E 1012",
+        "Departure_Time": "ETD SGT : 19:40",
+        "Arrival_Time": "ETA IST : 22:45",
+        "Layover": "NULL"
+      }
+    ],
+    "Pune": [
+      {
+        "Id": "1",
+        "Title": "Option A - SIN - PNQ",
+        "Date": "13th December",
+        "Airline": "Air India",
+        "Flight_Number": "AI 2383/2469",
+        "Departure_Time": "ETD SGT : 23:00",
+        "Arrival_Time": "ETA IST : 06:55",
+        "Layover": "New Delhi"
+      }
+    ]
+  }
+}

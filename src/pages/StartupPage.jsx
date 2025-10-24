@@ -60,17 +60,17 @@ export default function StartupPage({ data = heroData }) {
             />
 
             {/* Title */}
-            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4 lg:mb-6 ">
+            <h1 className="text-5xl  lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4 lg:mb-6 font-myfont ">
               {data.title}
             </h1>
 
             {/* Subtitle */}
-            <h2 className="text-lg sm:text-2xl lg:text-3xl text-indigo-400 font-semibold mb-2 sm:mb-3">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl text-indigo-400 font-semibold mb-2 sm:mb-3 font-myfont">
               {data.subtitle}
             </h2>
 
             {/* Description */}
-            <p className="text-sm sm:text-base lg:text-lg text-gray-300 max-w-2xl mb-6 sm:mb-8 font-myfont">
+            <p className="text-md  lg:text-lg text-gray-300 max-w-2xl mb-6 sm:mb-8 font-myfont">
               {data.description} 
             </p>
 

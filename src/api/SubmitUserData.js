@@ -35,8 +35,14 @@ export async function SubmitData(formData) {
   bodyFormData.append("Seat_Preference", formData.seatPreference || "");
 
   // Optional travel options
-  bodyFormData.append("Flight_Option_Departure", "");
-  bodyFormData.append("Flight_Option_Arrival", "");
+  bodyFormData.append(
+    "Flight_Option_Departure",
+    formData.departureFlightOption || ""
+  );
+  bodyFormData.append(
+    "Flight_Option_Arrival",
+    formData.arrivalFlightOption || ""
+  );
   bodyFormData.append(
     "Preference_Leisure_Activity",
     formData.leisureActivity || ""

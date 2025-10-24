@@ -12,11 +12,18 @@ import { heroData } from "../data/StartupData";
 import { SubmitData } from "../api/SubmitUserData";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import departureData from "../data/departure.json";
+import arrivalData from "../data/arrival.json";
+import { MODE } from "../../config";
 
 const MainFormPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Mode selection: "Economy" or "Business"
+  const mode = MODE; // Change this to "Business" as needed
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -26,8 +33,10 @@ const MainFormPage = () => {
     needsFlightBooking: "",
     departureCity: "",
     departureCityOther: "",
+    departureFlightOption: "",
     arrivalCity: "",
     arrivalCityOther: "",
+    arrivalFlightOption: "",
     seatPreference: "",
     leisureActivity: "",
     mealPreference: "",
@@ -49,7 +58,35 @@ const MainFormPage = () => {
 
   const seatOptions = ["Window", "Aisle", "Either"];
 
+  const leisureOptions = [
+    {
+      value: "iFly Singapore",
+      label: "Option 1 - iFly Singapore",
+      description:
+        "Defy gravity and experience the sensation of flight in this world-class adventure zone",
+    },
+    {
+      value: "Spa Session",
+      label: "Option 2 - Spa Session",
+      description:
+        "Indulge in a luxurious spa therapy that melts away stress and restores inner balance",
+    },
+  ];
+
   const mealOptions = ["Vegetarian", "Non-Vegetarian", "Jain", "Other"];
+
+  // Get departure flight options based on selected city and mode
+  const getDepartureFlightOptions = () => {
+    if (!formData.departureCity || formData.departureCity === "Other")
+      return [];
+    return departureData[mode]?.[formData.departureCity] || [];
+  };
+
+  // Get arrival flight options based on selected city and mode
+  const getArrivalFlightOptions = () => {
+    if (!formData.arrivalCity || formData.arrivalCity === "Other") return [];
+    return arrivalData[mode]?.[formData.arrivalCity] || [];
+  };
 
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -61,14 +98,15 @@ const MainFormPage = () => {
       setFormData((prev) => ({
         ...prev,
         departureCity: value,
-        // clear other text when user picks a normal city
         departureCityOther: value === "Other" ? prev.departureCityOther : "",
+        departureFlightOption: "", // Reset flight option when city changes
       }));
     } else if (field === "arrivalCity") {
       setFormData((prev) => ({
         ...prev,
         arrivalCity: value,
         arrivalCityOther: value === "Other" ? prev.arrivalCityOther : "",
+        arrivalFlightOption: "", // Reset flight option when city changes
       }));
     } else if (field === "mealPreference") {
       setFormData((prev) => ({
@@ -82,7 +120,12 @@ const MainFormPage = () => {
   };
 
   const isPage1Valid = () => {
-    if (!formData.fullName || !formData.address || !formData.hasVisa)
+    if (
+      !formData.fullName ||
+      !formData.email ||
+      !formData.address ||
+      !formData.hasVisa
+    )
       return false;
     if (formData.hasVisa === "No" && !formData.needsVisaAssistance)
       return false;
@@ -92,7 +135,7 @@ const MainFormPage = () => {
   const isPage2Valid = () => {
     if (!formData.needsFlightBooking) return false;
     if (formData.needsFlightBooking === "Yes") {
-      // require departure & arrival — if "Other" chosen then require the corresponding Other text
+      // require departure & arrival – if "Other" chosen then require the corresponding Other text
       const hasDeparture =
         formData.departureCity &&
         (formData.departureCity !== "Other" ||
@@ -103,12 +146,26 @@ const MainFormPage = () => {
         (formData.arrivalCity !== "Other" ||
           (formData.arrivalCity === "Other" &&
             formData.arrivalCityOther?.trim() !== ""));
-      if (!hasDeparture || !hasArrival) return false;
+
+      // Also require flight options to be selected (only for non-Other cities)
+      const hasDepartureFlight =
+        formData.departureCity === "Other" || formData.departureFlightOption;
+      const hasArrivalFlight =
+        formData.arrivalCity === "Other" || formData.arrivalFlightOption;
+
+      if (
+        !hasDeparture ||
+        !hasArrival ||
+        !hasDepartureFlight ||
+        !hasArrivalFlight
+      )
+        return false;
     }
     return true;
   };
 
   const isPage3Valid = () => {
+    if (!formData.leisureActivity) return false;
     if (
       formData.mealPreference === "Other" &&
       !formData.mealPreferenceOther?.trim()
@@ -130,7 +187,11 @@ const MainFormPage = () => {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const result = await SubmitData(formData);
+      console.log("Before Submitting to API : ", formData);
+      const result = await SubmitData({
+        ...formData,
+        //  travelMode: mode, // Include the mode in submission
+      });
       console.log("Submitted Data : ", result);
       if (result.Status) {
         toast.success(result?.Message || "Form submitted successfully!", {
@@ -152,7 +213,7 @@ const MainFormPage = () => {
     <div
       className="min-h-screen py-8 px-4"
       style={{
-        background: `url(${heroData.form_background_image})  center/contain`,
+        background: `url(${heroData.form_background_image}) center/cover`,
       }}
     >
       <div className="max-w-3xl mx-auto">
@@ -206,7 +267,7 @@ const MainFormPage = () => {
                 yourself.
               </p>
               <p className="mb-2">
-                We’re excited to make this journey a truly memorable one for
+                We're excited to make this journey a truly memorable one for
                 you. To help us plan your travel seamlessly, we request you to
                 share the information mentioned below.
               </p>
@@ -325,7 +386,7 @@ const MainFormPage = () => {
               {formData.hasVisa === "No" && (
                 <div className="bg-purple-50 p-6 rounded-lg border border-purple-200 animate-fadeIn">
                   <label className="block text-sm font-medium text-gray-700 mb-3">
-                    We’d be delighted to assist you with arranging your visa to
+                    We'd be delighted to assist you with arranging your visa to
                     ensure a seamless and hassle-free experience*
                   </label>
                   <div className="space-y-3">
@@ -387,7 +448,7 @@ const MainFormPage = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  We’d be delighted to arrange your flights for a smooth
+                  We'd be delighted to arrange your flights for a smooth
                   journey. If your company policy requires you to book your own,
                   just let us know <span className="text-red-500 mx-1">*</span>
                 </label>
@@ -480,6 +541,81 @@ const MainFormPage = () => {
                         className="mt-3 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
                       />
                     )}
+
+                    {/* Show flight options if city is selected and not "Other" */}
+                    {formData.departureCity &&
+                      formData.departureCity !== "Other" &&
+                      getDepartureFlightOptions().length > 0 && (
+                        <div className="mt-4">
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Onward Flight Options{" "}
+                            <span className="text-red-500 mx-1">*</span>
+                          </label>
+                          <div className="space-y-3">
+                            {getDepartureFlightOptions().map((flight) => (
+                              <label
+                                key={flight.Id}
+                                className={`flex items-start p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                                  formData.departureFlightOption === flight.Id
+                                    ? "border-blue-600 bg-white"
+                                    : "border-gray-200 hover:border-blue-300"
+                                }`}
+                              >
+                                <input
+                                  type="radio"
+                                  name="departureFlightOption"
+                                  value={flight.Id}
+                                  checked={
+                                    formData.departureFlightOption === flight.Id
+                                  }
+                                  onChange={(e) =>
+                                    handleInputChange(
+                                      "departureFlightOption",
+                                      e.target.value
+                                    )
+                                  }
+                                  className="w-4 h-4 text-blue-600 mt-1"
+                                />
+                                <div className="ml-3 flex-1">
+                                  <p className="font-semibold text-gray-800">
+                                    {flight.Title}
+                                  </p>
+                                  <p className="text-sm text-gray-600 mt-1">
+                                    <span className="font-medium">Date:</span>{" "}
+                                    {flight.Date}
+                                  </p>
+                                  <p className="text-sm text-gray-600">
+                                    <span className="font-medium">
+                                      Airline:
+                                    </span>{" "}
+                                    {flight.Airline} ({flight.Flight_Number})
+                                  </p>
+                                  <p className="text-sm text-gray-600">
+                                    <span className="font-medium">
+                                      Departure:
+                                    </span>{" "}
+                                    {flight.Departure_Time}
+                                  </p>
+                                  <p className="text-sm text-gray-600">
+                                    <span className="font-medium">
+                                      Arrival:
+                                    </span>{" "}
+                                    {flight.Arrival_Time}
+                                  </p>
+                                  {flight.Layover !== "NULL" && (
+                                    <p className="text-sm text-gray-600 mt-1">
+                                      <span className="font-medium">
+                                        Layover:
+                                      </span>{" "}
+                                      {flight.Layover}
+                                    </p>
+                                  )}
+                                </div>
+                              </label>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                   </div>
 
                   {/* Arrival City */}
@@ -514,14 +650,90 @@ const MainFormPage = () => {
                         className="mt-3 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
                       />
                     )}
+
+                    {/* Show flight options if city is selected and not "Other" */}
+                    {formData.arrivalCity &&
+                      formData.arrivalCity !== "Other" &&
+                      getArrivalFlightOptions().length > 0 && (
+                        <div className="mt-4">
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Return Flight Options{" "}
+                            <span className="text-red-500 mx-1">*</span>
+                          </label>
+                          <div className="space-y-3">
+                            {getArrivalFlightOptions().map((flight) => (
+                              <label
+                                key={flight.Id}
+                                className={`flex items-start p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                                  formData.arrivalFlightOption === flight.Id
+                                    ? "border-blue-600 bg-white"
+                                    : "border-gray-200 hover:border-blue-300"
+                                }`}
+                              >
+                                <input
+                                  type="radio"
+                                  name="arrivalFlightOption"
+                                  value={flight.Id}
+                                  checked={
+                                    formData.arrivalFlightOption === flight.Id
+                                  }
+                                  onChange={(e) =>
+                                    handleInputChange(
+                                      "arrivalFlightOption",
+                                      e.target.value
+                                    )
+                                  }
+                                  className="w-4 h-4 text-blue-600 mt-1"
+                                />
+                                <div className="ml-3 flex-1">
+                                  <p className="font-semibold text-gray-800">
+                                    {flight.Title}
+                                  </p>
+                                  <p className="text-sm text-gray-600 mt-1">
+                                    <span className="font-medium">Date:</span>{" "}
+                                    {flight.Date}
+                                  </p>
+                                  <p className="text-sm text-gray-600">
+                                    <span className="font-medium">
+                                      Airline:
+                                    </span>{" "}
+                                    {flight.Airline} ({flight.Flight_Number})
+                                  </p>
+                                  <p className="text-sm text-gray-600">
+                                    <span className="font-medium">
+                                      Departure:
+                                    </span>{" "}
+                                    {flight.Departure_Time}
+                                  </p>
+                                  <p className="text-sm text-gray-600">
+                                    <span className="font-medium">
+                                      Arrival:
+                                    </span>{" "}
+                                    {flight.Arrival_Time}
+                                  </p>
+                                  {flight.Layover !== "NULL" && (
+                                    <p className="text-sm text-gray-600 mt-1">
+                                      <span className="font-medium">
+                                        Layover:
+                                      </span>{" "}
+                                      {flight.Layover}
+                                    </p>
+                                  )}
+                                </div>
+                              </label>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                   </div>
+
                   {/* Seat Preference Dropdown */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Choose your seat preference
                     </label>
                     <p className="text-xs text-gray-600 mb-3">
-                      Got a favorite seat? Let us know, and we’ll try to snag it
+                      Got a favorite seat? Let us know, and we'll try to snag it
                       for you! (Subject to availability)
                     </p>
                     <select
@@ -558,22 +770,41 @@ const MainFormPage = () => {
               </p>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-3">
                   Preference for Leisure Activity on the 13th of December, 2025
                   <span className="text-red-500 mx-1">*</span>
                 </label>
-                <input
-                  type="text"
-                  value={formData.leisureActivity}
-                  onChange={(e) =>
-                    handleInputChange("leisureActivity", e.target.value)
-                  }
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                  placeholder="Enter your leisure activity preference"
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  Options work in progress
-                </p>
+                <div className="space-y-3">
+                  {leisureOptions.map((option) => (
+                    <label
+                      key={option.value}
+                      className={`flex items-start p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                        formData.leisureActivity === option.value
+                          ? "border-blue-600 bg-blue-50"
+                          : "border-gray-200 hover:border-blue-300"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="leisureActivity"
+                        value={option.value}
+                        checked={formData.leisureActivity === option.value}
+                        onChange={(e) =>
+                          handleInputChange("leisureActivity", e.target.value)
+                        }
+                        className="w-4 h-4 text-blue-600 mt-1"
+                      />
+                      <div className="ml-3">
+                        <p className="font-semibold text-gray-800">
+                          {option.label}
+                        </p>
+                        <p className="text-sm text-gray-600 mt-1">
+                          {option.description}
+                        </p>
+                      </div>
+                    </label>
+                  ))}
+                </div>
               </div>
 
               <div>
@@ -668,7 +899,7 @@ const MainFormPage = () => {
             </button>
           ) : (
             <button
-              disabled={!isPage3Valid()}
+              disabled={!isPage3Valid() || loading}
               onClick={handleSubmit}
               className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all disabled:cursor-not-allowed disabled:opacity-70"
             >

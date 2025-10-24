@@ -1,10 +1,78 @@
 import React from "react";
-import { X, User, MapPin, Plane, Utensils, FileCheck } from "lucide-react";
+import {
+  X,
+  User,
+  MapPin,
+  Plane,
+  Utensils,
+  FileCheck,
+  Mail,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import DepartureData from "../../data/departure.json";
+import ArrivalData from "../../data/arrival.json";
+import { MODE } from "../../../config";
 
 const FormModal = ({ isOpen, onClose, userData, loading }) => {
-  console.log("Specified User Data : ", userData);
-  if (!isOpen) return null;
+  const getDepartureFlightDetails = () => {
+    if (
+      !userData?.Flight_Option_Departure ||
+      userData.Flight_Option_Departure === "NA"
+    )
+      return null;
+    if (!userData?.Departure_City || userData.Departure_City === "Other")
+      return null;
+
+    if (MODE === "Economy") {
+      const economyFlights = DepartureData?.Economy?.[userData.Departure_City];
+      const flight = economyFlights?.find(
+        (f) => f.Id === userData.Flight_Option_Departure
+      );
+      return flight ? { ...flight, mode: "Economy" } : null;
+    }
+
+    if (MODE === "Business") {
+      const businessFlights =
+        DepartureData?.Business?.[userData.Departure_City];
+      const flight = businessFlights?.find(
+        (f) => f.Id === userData.Flight_Option_Departure
+      );
+      return flight ? { ...flight, mode: "Business" } : null;
+    }
+
+    return null;
+  };
+
+  const getArrivalFlightDetails = () => {
+    if (
+      !userData?.Flight_Option_Arrival ||
+      userData.Flight_Option_Arrival === "NA"
+    )
+      return null;
+    if (!userData?.Arrival_City || userData.Arrival_City === "Other")
+      return null;
+
+    if (MODE === "Economy") {
+      const economyFlights = ArrivalData?.Economy?.[userData.Arrival_City];
+      const flight = economyFlights?.find(
+        (f) => f.Id === userData.Flight_Option_Arrival
+      );
+      return flight ? { ...flight, mode: "Economy" } : null;
+    }
+
+    if (MODE === "Business") {
+      const businessFlights = ArrivalData?.Business?.[userData.Arrival_City];
+      const flight = businessFlights?.find(
+        (f) => f.Id === userData.Flight_Option_Arrival
+      );
+      return flight ? { ...flight, mode: "Business" } : null;
+    }
+
+    return null;
+  };
+
+  const departureFlightDetails = getDepartureFlightDetails();
+  const arrivalFlightDetails = getArrivalFlightDetails();
 
   const renderField = (label, value, icon) => (
     <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 hover:border-gray-600/50 transition-colors">
@@ -19,6 +87,61 @@ const FormModal = ({ isOpen, onClose, userData, loading }) => {
               <span className="text-gray-500 italic">Not provided</span>
             )}
           </p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderFlightCard = (label, flightDetails) => (
+    <div className="md:col-span-2">
+      <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 hover:border-gray-600/50 transition-colors">
+        <div className="flex items-start gap-3">
+          <div className="bg-purple-500/10 rounded-lg p-2 mt-0.5">
+            <Plane size={18} className="text-purple-400" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <label className="text-xs font-medium text-gray-400 uppercase tracking-wide block mb-2">
+              {label}
+            </label>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                {/* <span className="inline-block px-2 py-1 bg-blue-500/20 text-blue-300 text-xs rounded font-medium">
+                  {flightDetails.mode}
+                </span> */}
+                <p className="font-semibold text-white text-base">
+                  {flightDetails.Title}
+                </p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                <p className="text-gray-300">
+                  <span className="text-gray-500">Date:</span>{" "}
+                  {flightDetails.Date}
+                </p>
+                <p className="text-gray-300">
+                  <span className="text-gray-500">Airline:</span>{" "}
+                  {flightDetails.Airline}
+                </p>
+                <p className="text-gray-300">
+                  <span className="text-gray-500">Flight:</span>{" "}
+                  {flightDetails.Flight_Number}
+                </p>
+                <p className="text-gray-300">
+                  <span className="text-gray-500">Departure:</span>{" "}
+                  {flightDetails.Departure_Time}
+                </p>
+                <p className="text-gray-300">
+                  <span className="text-gray-500">Arrival:</span>{" "}
+                  {flightDetails.Arrival_Time}
+                </p>
+                {flightDetails.Layover !== "NULL" && (
+                  <p className="text-gray-300">
+                    <span className="text-gray-500">Layover:</span>{" "}
+                    {flightDetails.Layover}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -101,7 +224,7 @@ const FormModal = ({ isOpen, onClose, userData, loading }) => {
                       {renderField(
                         "Email Address",
                         userData.Email_ID,
-                        <User size={18} className="text-blue-400" />
+                        <Mail size={18} className="text-blue-400" />
                       )}
                       <div className="md:col-span-2">
                         {renderField(
@@ -125,7 +248,7 @@ const FormModal = ({ isOpen, onClose, userData, loading }) => {
                       )}
                       {userData.Valid_Visa === "No" &&
                         renderField(
-                          "We’d be delighted to assist you with arranging your visa to ensure a seamless and hassle-free experience",
+                          "We'd be delighted to assist you with arranging your visa to ensure a seamless and hassle-free experience",
                           userData.Arranging_Visa,
                           <FileCheck size={18} className="text-green-400" />
                         )}
@@ -139,28 +262,30 @@ const FormModal = ({ isOpen, onClose, userData, loading }) => {
                     <>
                       <div className="md:col-span-2">
                         {renderField(
-                          "We’d be delighted to arrange your flights for a smooth journey. If your company policy requires you to book your own, just let us know ",
+                          "We'd be delighted to arrange your flights for a smooth journey. If your company policy requires you to book your own, just let us know",
                           userData.Flight_Booking,
                           <Plane size={18} className="text-purple-400" />
                         )}
                       </div>
                       {userData.Flight_Booking === "Yes" && (
                         <>
+                          {/* Departure City */}
                           {userData.Departure_City !== "Other" ? (
                             <div className="md:col-span-2">
                               {renderField(
                                 "Departure City",
                                 userData.Departure_City,
-                                <Plane size={18} className="text-purple-400" />
+                                <MapPin size={18} className="text-purple-400" />
                               )}
                             </div>
                           ) : (
-                            userData.Departure_City_Other && (
+                            userData.Departure_City_Other &&
+                            userData.Departure_City_Other !== "NA" && (
                               <div className="md:col-span-2">
                                 {renderField(
                                   "Departure City (Other)",
                                   userData.Departure_City_Other,
-                                  <Plane
+                                  <MapPin
                                     size={18}
                                     className="text-purple-400"
                                   />
@@ -169,21 +294,30 @@ const FormModal = ({ isOpen, onClose, userData, loading }) => {
                             )
                           )}
 
+                          {/* Departure Flight Details */}
+                          {departureFlightDetails &&
+                            renderFlightCard(
+                              "Onward Flight Details",
+                              departureFlightDetails
+                            )}
+
+                          {/* Arrival City */}
                           {userData.Arrival_City !== "Other" ? (
                             <div className="md:col-span-2">
                               {renderField(
                                 "Arrival City",
                                 userData.Arrival_City,
-                                <Plane size={18} className="text-purple-400" />
+                                <MapPin size={18} className="text-purple-400" />
                               )}
                             </div>
                           ) : (
-                            userData.Arrival_City_Other && (
+                            userData.Arrival_City_Other &&
+                            userData.Arrival_City_Other !== "NA" && (
                               <div className="md:col-span-2">
                                 {renderField(
                                   "Arrival City (Other)",
                                   userData.Arrival_City_Other,
-                                  <Plane
+                                  <MapPin
                                     size={18}
                                     className="text-purple-400"
                                   />
@@ -191,6 +325,15 @@ const FormModal = ({ isOpen, onClose, userData, loading }) => {
                               </div>
                             )
                           )}
+
+                          {/* Arrival Flight Details */}
+                          {arrivalFlightDetails &&
+                            renderFlightCard(
+                              "Return Flight Details",
+                              arrivalFlightDetails
+                            )}
+
+                          {/* Seat Preference */}
                           <div className="md:col-span-2">
                             {renderField(
                               "Seat Preference",
@@ -224,7 +367,8 @@ const FormModal = ({ isOpen, onClose, userData, loading }) => {
                           )}
                         </div>
                       ) : (
-                        userData.Meal_Preference_Other && (
+                        userData.Meal_Preference_Other &&
+                        userData.Meal_Preference_Other !== "NA" && (
                           <div className="md:col-span-2">
                             {renderField(
                               "Meal Preference (Other)",
@@ -238,7 +382,10 @@ const FormModal = ({ isOpen, onClose, userData, loading }) => {
                       <div className="md:col-span-2">
                         {renderField(
                           "Food Allergies",
-                          userData.Food_Allergies,
+                          userData.Food_Allergies &&
+                            userData.Food_Allergies !== "NA"
+                            ? userData.Food_Allergies
+                            : "None",
                           <Utensils size={18} className="text-orange-400" />
                         )}
                       </div>
@@ -246,19 +393,16 @@ const FormModal = ({ isOpen, onClose, userData, loading }) => {
                   )}
 
                   {/* Submission Info */}
-                  {userData.Submission_Time && (
+                  {userData.Created_At && (
                     <div className="bg-gray-700/30 rounded-lg p-4 border border-gray-600/50">
                       <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">
                         Submitted On
                       </p>
                       <p className="text-gray-200 text-sm">
-                        {new Date(userData.Submission_Time).toLocaleString(
-                          "en-US",
-                          {
-                            dateStyle: "full",
-                            timeStyle: "short",
-                          }
-                        )}
+                        {new Date(userData.Created_At).toLocaleString("en-US", {
+                          dateStyle: "full",
+                          timeStyle: "short",
+                        })}
                       </p>
                     </div>
                   )}
