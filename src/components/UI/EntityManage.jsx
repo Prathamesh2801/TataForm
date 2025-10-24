@@ -244,7 +244,7 @@ export default function EntityManage({ config, mode = MODE }) {
         "Food Allergies": item.Food_Allergies || "NA",
 
         // Submission
-        "Submitted On": formatSubmissionTime(item.Created_At),
+        // "Submitted On": formatSubmissionTime(item.Created_At),
       };
     });
   };

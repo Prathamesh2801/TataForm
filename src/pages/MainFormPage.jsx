@@ -550,6 +550,10 @@ const MainFormPage = () => {
                           <label className="block text-sm font-medium text-gray-700 mb-2">
                             Onward Flight Options{" "}
                             <span className="text-red-500 mx-1">*</span>
+                            <div className="my-1 flex items-center justify-start text-gray-500 text-xs ">
+                              
+                              (Subject to availability)
+                            </div>
                           </label>
                           <div className="space-y-3">
                             {getDepartureFlightOptions().map((flight) => (
@@ -659,6 +663,10 @@ const MainFormPage = () => {
                           <label className="block text-sm font-medium text-gray-700 mb-2">
                             Return Flight Options{" "}
                             <span className="text-red-500 mx-1">*</span>
+                             <div className="my-1 flex items-center justify-start text-gray-500 text-xs ">
+                             
+                              (Subject to availability)
+                            </div>
                           </label>
                           <div className="space-y-3">
                             {getArrivalFlightOptions().map((flight) => (

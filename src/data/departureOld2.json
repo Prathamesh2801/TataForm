@@ -19,7 +19,7 @@
         "Flight_Number": "6E6337/6E1027",
         "Departure_Time": "ETD IST : 05:10",
         "Arrival_Time": "ETA SGT : 16:40",
-        "Layover": "Hyderabad"
+        "Layover": "Hyderabd"
       }
     ],
     "Bangalore": [
@@ -223,11 +223,11 @@
         "Id": "2",
         "Title": "Option B - AMD-SIN",
         "Date": "10th December",
-        "Airline": "Air India",
-        "Flight_Number": "AI 2918/AI 2107",
-        "Departure_Time": "ETD IST : 06:00",
-        "Arrival_Time": "ETA SGT : 18:30",
-        "Layover": "Mumbai (2.45 hrs)"
+        "Airline": "Indigo",
+        "Flight_Number": "6E 5182/6E 1011",
+        "Departure_Time": "ETD IST : 04:40",
+        "Arrival_Time": "ETA SGT : 17:20",
+        "Layover": "Bombay"
       }
     ],
     "Bangalore": [
@@ -235,21 +235,11 @@
         "Id": "1",
         "Title": "Option A - BLR - SIN",
         "Date": "10th December",
-        "Airline": "Air India",
-        "Flight_Number": "AI 2402/ 2107",
-        "Departure_Time": "ETD IST : 06:30",
-        "Arrival_Time": "ETA SGT : 18:30",
-        "Layover": "Mumbai (1.40 hrs)"
-      },
-      {
-        "Id": "2",
-        "Title": "Option B - BLR - SIN",
-        "Date": "9th December",
-        "Airline": "Thai Air Asia",
-        "Flight_Number": "FD 138/ FD 359",
-        "Departure_Time": "ETD IST : 23:10",
-        "Arrival_Time": "ETA SGT : 10:30",
-        "Layover": "Don Mueang Intl-Bangkok (2.35 hrs)"
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 509",
+        "Departure_Time": "ETD IST : 11:45",
+        "Arrival_Time": "ETA SGT : 19:05",
+        "Layover": "NULL"
       }
     ],
     "Chennai": [
@@ -289,6 +279,16 @@
         "Id": "2",
         "Title": "Option B - DEL - SIN",
         "Date": "10th December",
+        "Airline": "Singapore Airlines",
+        "Flight_Number": "SQ 401",
+        "Departure_Time": "ETD IST : 09:45",
+        "Arrival_Time": "ETA SGT : 18:00",
+        "Layover": "NULL"
+      },
+      {
+        "Id": "3",
+        "Title": "Option C - DEL - SIN",
+        "Date": "10th December",
         "Airline": "IndiGo",
         "Flight_Number": "6E 1013",
         "Departure_Time": "ETD IST : 09:20",
@@ -306,26 +306,6 @@
         "Departure_Time": "ETD IST : 23:10",
         "Arrival_Time": "ETA SGT : 6:15",
         "Layover": "NULL"
-      },
-      {
-        "Id": "2",
-        "Title": "Option B - HYD - SIN",
-        "Date": "09th December",
-        "Airline": "Air Asia",
-        "Flight_Number": "AK 68/AK 705",
-        "Departure_Time": "ETD IST : 23:55",
-        "Arrival_Time": "ETA SGT : 9:05",
-        "Layover": "Kuala Lumpur (1.10 hrs)"
-      },
-      {
-        "Id": "3",
-        "Title": "Option C - HYD - SIN",
-        "Date": "10th December",
-        "Airline": "Malaysia Airlines",
-        "Flight_Number": "MH 199/ MH 611",
-        "Departure_Time": "ETD IST : 00:30",
-        "Arrival_Time": "ETA SGT : 10:20",
-        "Layover": "Kuala Lumpur (1.40 hrs)"
       }
     ],
     "Kolkata": [
@@ -338,26 +318,6 @@
         "Departure_Time": "ETD IST : 23:40",
         "Arrival_Time": "ETA SGT : 06:15",
         "Layover": "NULL"
-      },
-      {
-        "Id": "2",
-        "Title": "Option B - CCU - SIN",
-        "Date": "10th December",
-        "Airline": "Malaysia Airlines",
-        "Flight_Number": "MH 185/ MH 601",
-        "Departure_Time": "ETD IST : 00:10",
-        "Arrival_Time": "ETA SGT : 09:05",
-        "Layover": "Kuala Lumpur (1.05 hrs)"
-      },
-      {
-        "Id": "3",
-        "Title": "Option C - CCU - SIN",
-        "Date": "10th December",
-        "Airline": "Air Asia Berhad",
-        "Flight_Number": "AK 62/ AK 713",
-        "Departure_Time": "ETD IST : 01:05",
-        "Arrival_Time": "ETA SGT : 10:20",
-        "Layover": "Kuala Lumpur (1.35 hrs)"
       }
     ],
     "Mumbai": [
@@ -391,7 +351,7 @@
         "Flight_Number": "AI 9553/348",
         "Departure_Time": "ETD IST : 00:15",
         "Arrival_Time": "ETA SGT : 12:35",
-        "Layover": "Chennai (3.20 hrs) - Change of Terminal"
+        "Layover": "Chennai"
       },
       {
         "Id": "2",
@@ -400,8 +360,18 @@
         "Airline": "Air India",
         "Flight_Number": "AI 2404/2115",
         "Departure_Time": "ETD IST : 05:35",
-        "Arrival_Time": "ETA SGT : 18:55",
-        "Layover": "New Delhi (2.50 hrs)"
+        "Arrival_Time": "ETA SGT : 19:30",
+        "Layover": "New Delhi"
+      },
+      {
+        "Id": "3",
+        "Title": "Option C - PNQ - SIN",
+        "Date": "10th December",
+        "Airline": "Indigo",
+        "Flight_Number": "6E 6409/6E 1013",
+        "Departure_Time": "ETD IST : 2:35",
+        "Arrival_Time": "ETA SGT : 17:40",
+        "Layover": "New Delhi"
       }
     ]
   }

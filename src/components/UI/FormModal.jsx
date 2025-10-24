@@ -393,7 +393,7 @@ const FormModal = ({ isOpen, onClose, userData, loading }) => {
                   )}
 
                   {/* Submission Info */}
-                  {userData.Created_At && (
+                  {/* {userData.Created_At && (
                     <div className="bg-gray-700/30 rounded-lg p-4 border border-gray-600/50">
                       <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">
                         Submitted On
@@ -405,7 +405,7 @@ const FormModal = ({ isOpen, onClose, userData, loading }) => {
                         })}
                       </p>
                     </div>
-                  )}
+                  )} */}
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center py-12">
