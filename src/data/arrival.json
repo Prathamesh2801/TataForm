@@ -218,6 +218,16 @@
         "Departure_Time": "ETD SGT : 18:40",
         "Arrival_Time": "ETA IST : 21:50",
         "Layover": "NULL"
+      },
+      {
+        "Id": "2",
+        "Title": "Option B - SIN - AMD",
+        "Date": "13th December",
+        "Airline": "Malaysia Airlines",
+        "Flight_Number": "MH 616/ MH 208",
+        "Departure_Time": "ETD SGT : 19:30",
+        "Arrival_Time": "ETA IST : 01:55",
+        "Layover": "Kuala Lumpur (2.15 hrs)"
       }
     ],
     "Bangalore": [
@@ -225,21 +235,11 @@
         "Id": "1",
         "Title": "Option A - SIN - BLR",
         "Date": "13th December",
-        "Airline": "Singapore Airlines",
-        "Flight_Number": "SQ 510",
-        "Departure_Time": "ETD SGT : 20:00",
-        "Arrival_Time": "ETA IST : 21:50",
-        "Layover": "NULL"
-      },
-      {
-        "Id": "2",
-        "Title": "Option B - SIN - BLR",
-        "Date": "13th December",
         "Airline": "Malaysia Airlines",
         "Flight_Number": "MH 608/ MH 192",
         "Departure_Time": "ETD SGT : 17:25",
         "Arrival_Time": "ETA IST : 23:20",
-        "Layover": "Federal Territory of Kuala Lumpur"
+        "Layover": "Federal Territory of Kuala Lumpur (2.45 hrs)"
       }
     ],
     "Chennai": [
@@ -261,17 +261,7 @@
         "Flight_Number": "AK 716/ AK 13",
         "Departure_Time": "ETD SGT : 18:35",
         "Arrival_Time": "ETA IST : 22:55",
-        "Layover": "Federal Territory of Kuala Lumpur"
-      },
-      {
-        "Id": "3",
-        "Title": "Option C - SIN - MAA",
-        "Date": "13th December",
-        "Airline": "Malaysia Airlines",
-        "Flight_Number": "MH 608/MH180",
-        "Departure_Time": "ETD SGT : 17:25",
-        "Arrival_Time": "ETA IST : 23:05",
-        "Layover": "Federal Territory of Kuala Lumpur"
+        "Layover": "Federal Territory of Kuala Lumpur (1.50 hrs)"
       }
     ],
     "Delhi": [
@@ -287,17 +277,7 @@
       },
       {
         "Id": "2",
-        "Title": "Option B -SIN - DEL",
-        "Date": "13th December",
-        "Airline": "Singapore Airlines",
-        "Flight_Number": "SQ 406",
-        "Departure_Time": "ETD SGT : 16:40",
-        "Arrival_Time": "ETA IST : 20:00",
-        "Layover": "NULL"
-      },
-      {
-        "Id": "3",
-        "Title": "Option C - SIN - DEL",
+        "Title": "Option B - SIN - DEL",
         "Date": "13th December",
         "Airline": "IndiGo",
         "Flight_Number": "6E 1014",
@@ -316,6 +296,16 @@
         "Departure_Time": "ETD SGT : 20:00",
         "Arrival_Time": "ETA IST : 21:55",
         "Layover": "NULL"
+      },
+      {
+        "Id": "2",
+        "Title": "Option B - SIN - HYD",
+        "Date": "13th December",
+        "Airline": "Air Asia Berhad",
+        "Flight_Number": "AK 716/ AK 69",
+        "Departure_Time": "ETD SGT : 18:35",
+        "Arrival_Time": "ETA IST : 23:15",
+        "Layover": "Kuala Lumpur (1.40 hrs)"
       }
     ],
     "Kolkata": [
@@ -328,6 +318,16 @@
         "Departure_Time": "ETD SGT : 20:40",
         "Arrival_Time": "ETA IST : 22:25",
         "Layover": "NULL"
+      },
+      {
+        "Id": "2",
+        "Title": "Option B - SIN - CCU",
+        "Date": "13th December",
+        "Airline": "Air Asia Berhad",
+        "Flight_Number": "AK 718/ AK 63",
+        "Departure_Time": "ETD SGT : 20:15",
+        "Arrival_Time": "ETA IST : 00:20",
+        "Layover": "Kuala Lumpur (1.30 hrs)"
       }
     ],
     "Mumbai": [
@@ -345,16 +345,6 @@
         "Id": "2",
         "Title": "Option B - SIN - BOM",
         "Date": "13th December",
-        "Airline": "Singapore Airlines",
-        "Flight_Number": "SQ 424",
-        "Departure_Time": "ETD SGT : 18:50",
-        "Arrival_Time": "ETA IST : 21:50",
-        "Layover": "NULL"
-      },
-      {
-        "Id": "3",
-        "Title": "Option C - SIN - BOM",
-        "Date": "13th December",
         "Airline": "IndiGo",
         "Flight_Number": "6E 1012",
         "Departure_Time": "ETD SGT : 19:40",
@@ -371,7 +361,7 @@
         "Flight_Number": "AI 2383/2469",
         "Departure_Time": "ETD SGT : 23:00",
         "Arrival_Time": "ETA IST : 06:55",
-        "Layover": "New Delhi"
+        "Layover": "New Delhi (2.10 hrs)"
       }
     ]
   }
